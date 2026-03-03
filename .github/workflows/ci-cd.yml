@@ -18,9 +18,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: build backend image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend_tp_actions:latest ./springboot
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend_tp_actions:latest ../../springboot/
       - name: build frontend image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend_tp_actions:latest ./angular-app
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend_tp_actions:latest ../../angular-app
       - name: push backend image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend_tp_actions:latest
       - name: push frontend image
