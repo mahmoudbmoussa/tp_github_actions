@@ -28,7 +28,14 @@ jobs:
       - name: docker compose
         run: docker compose up -d
       - name: Wait for containers
-        run: sleep 120
+        run: sleep 20
+      - name: Wait for MySQL
+        run: |
+                for i in {1..30}; do
+                  docker exec mysql mysql -uroot -proot -e "SELECT 1" && break
+                  echo "Waiting for MySQL..."
+                  sleep 3
+                done
       - name: Check running containers
         run: docker ps
       - name: Show container logs
