@@ -17,8 +17,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Show Dockerfile content
-        run: cat springboot/app/Dockerfile
       - name: build backend image
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend_tp_actions:latest ./springboot/app
       - name: build frontend image
@@ -27,3 +25,15 @@ jobs:
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend_tp_actions:latest
       - name: push frontend image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend_tp_actions:latest
+      - name: docker compose
+        run: docker-compose up -d
+      - name: Wait for containers
+        run: sleep 20
+      - name: Check running containers
+        run: docker ps
+      - name: Show container logs
+        run: docker compose logs
+      - name: Test backend endpoint
+        run: curl -f http://localhost:8081
+      - name: Test frontend endpoint
+        run: curl -f http://localhost:4200
