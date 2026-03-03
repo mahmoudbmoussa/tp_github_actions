@@ -27,8 +27,10 @@ jobs:
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend_tp_actions:latest
       - name: docker compose
         run: docker compose up -d
+      - name: wait for containers
+        run: sleep 20
       - name: Check running containers
-        run: docker ps -a
+        run: docker ps
       - name: Show container logs
         run: docker compose logs
       - name: Test backend endpoint
