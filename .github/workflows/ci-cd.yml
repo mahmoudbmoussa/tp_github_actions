@@ -17,6 +17,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Show Dockerfile content
+        run: cat springboot/app/Dockerfile
       - name: build backend image
         run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/backend_tp_actions:latest ./springboot/app
       - name: build frontend image
