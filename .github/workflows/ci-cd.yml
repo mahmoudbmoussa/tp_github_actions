@@ -34,6 +34,9 @@ jobs:
       - name: Show container logs
         run: docker compose logs
       - name: Test backend endpoint
-        run: curl -f http://localhost:8081/user/all
+        run: |
+                echo "waiting for springboot"
+                sleep 20
+                curl -f http://localhost:8081/user/all
       - name: Test frontend endpoint
         run: curl -f http://localhost:4200
